@@ -2,6 +2,9 @@ package com.example.jazs26071nbp.controller;
 
 import com.example.jazs26071nbp.service.NbpService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +26,12 @@ public class NbpController {
     }
 
 
-
+    @Operation(summary = "Get average rate for currency", description = "Returns counted avarage rate in choosen time")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "ITS OK", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Error while finding rate for currency", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid input", content = @Content)
+    })
     @GetMapping("/{currency}/{startDate}/{endDate}")
     public ResponseEntity<Double> getAverageRateForCurrency(
             @PathVariable String currency,
